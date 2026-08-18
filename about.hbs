@@ -1,0 +1,22 @@
+# Third-Party Notices
+
+This file contains license information for third-party software used by
+winmerge-anydoc.
+
+This file is generated from the Rust dependency graph by cargo-about.
+Do not edit it manually.
+
+{{#each licenses}}
+## {{name}}
+
+Used by:
+
+{{#each used_by}}
+- {{crate.name}} {{crate.version}}{{#if crate.repository}} - {{crate.repository}}{{/if}}
+{{/each}}
+
+```text
+{{&text}}
+```
+
+{{/each}}

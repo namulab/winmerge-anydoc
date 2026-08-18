@@ -1,0 +1,10 @@
+*.rs text eol=lf
+*.toml text eol=lf
+*.md text eol=lf
+*.hbs text eol=lf
+*.idl text eol=lf
+Cargo.lock text eol=lf
+.gitignore text eol=lf
+LICENSE text eol=lf
+*.ps1 -text
+*.docx -text

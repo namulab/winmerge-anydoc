@@ -1,0 +1,65 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+    object,
+    uuid(2313EC64-FEC5-47CF-8E01-EE3306F3BBA1),
+    dual,
+    helpstring("IWinMergeScript Interface"),
+    pointer_default(unique)
+]
+interface IWinMergeScript : IDispatch
+{
+    [propget, id(1)]
+    HRESULT PluginEvent([out, retval] BSTR *pVal);
+
+    [propget, id(2)]
+    HRESULT PluginDescription([out, retval] BSTR *pVal);
+
+    [propget, id(3)]
+    HRESULT PluginFileFilters([out, retval] BSTR *pVal);
+
+    [propget, id(4)]
+    HRESULT PluginIsAutomatic([out, retval] VARIANT_BOOL *pVal);
+
+    [propget, id(5)]
+    HRESULT PluginUnpackedFileExtension([out, retval] BSTR *pVal);
+
+    [id(6)]
+    HRESULT UnpackFile(
+        [in] BSTR fileSrc,
+        [in] BSTR fileDst,
+        VARIANT_BOOL *pbChanged,
+        INT *pSubcode,
+        [out, retval] VARIANT_BOOL *pbSuccess
+    );
+
+    [id(7)]
+    HRESULT PackFile(
+        [in] BSTR fileSrc,
+        [in] BSTR fileDst,
+        VARIANT_BOOL *pbChanged,
+        INT pSubcode,
+        [out, retval] VARIANT_BOOL *pbSuccess
+    );
+};
+
+[
+    uuid(87B34DAE-9AF6-4DB7-9FDC-0E380A5855CE),
+    version(1.0),
+    helpstring("WinMerge anydoc Plugin 1.0 Type Library")
+]
+library WinMergeAnydocLib
+{
+    importlib("stdole32.tlb");
+    importlib("stdole2.tlb");
+
+    [
+        uuid(A4F619AC-6B9E-48A9-A09D-3B12200693EA),
+        helpstring("WinMergeScript Class")
+    ]
+    coclass WinMergeScript
+    {
+        [default] interface IWinMergeScript;
+    };
+};

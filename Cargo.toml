@@ -1,0 +1,31 @@
+[package]
+name = "winmerge-anydoc"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.97.1"
+license = "MIT"
+publish = false
+readme = "README.md"
+description = "A WinMerge plugin that converts Office documents to Markdown using anydoc for text comparison."
+
+
+[dependencies]
+anydoc = "0.1.9"
+windows-core = "0.62.2"
+
+[dependencies.windows]
+version = "0.62.2"
+features = [
+    "Win32_System_Com",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Ole",
+    "Win32_System_Variant",
+]
+
+[lib]
+name = "compare_office_with_anydoc"
+crate-type = ["rlib", "cdylib"]
+
+[[bin]]
+name = "winmerge-anydoc-cli"
+path = "src/main.rs"
