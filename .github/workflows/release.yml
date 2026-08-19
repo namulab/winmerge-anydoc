@@ -1,0 +1,70 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*"
+
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+    runs-on: windows-2025
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Build release
+        shell: pwsh
+        run: cargo build --release
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    runs-on: windows-2025
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Verify tag matches Cargo version
+        shell: pwsh
+        run: |
+          $metadata = cargo metadata --no-deps --format-version 1 | ConvertFrom-Json
+          $version = ($metadata.packages | Where-Object { $_.name -eq "winmerge-anydoc" }).version
+          $expected = "v$version"
+
+          if ($env:GITHUB_REF_NAME -ne $expected) {
+              throw "Tag $env:GITHUB_REF_NAME does not match Cargo.toml version $version"
+          }
+
+      - name: Build release
+        shell: pwsh
+        run: cargo build --release
+
+      - name: Package
+        shell: pwsh
+        run: |
+          $packageName = "winmerge-anydoc-$env:GITHUB_REF_NAME"
+          $packageDir = Join-Path $env:RUNNER_TEMP $packageName
+          $zipPath = Join-Path $env:GITHUB_WORKSPACE "$packageName.zip"
+
+          New-Item -ItemType Directory -Force -Path $packageDir | Out-Null
+
+          Copy-Item "target\release\compare_office_with_anydoc.dll" $packageDir
+          Copy-Item "LICENSE" $packageDir
+          Copy-Item "THIRD_PARTY_NOTICES.md" $packageDir
+          Copy-Item "README.md" $packageDir
+
+          Compress-Archive -Path "$packageDir\*" -DestinationPath $zipPath
+
+      - name: Create GitHub Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create $env:GITHUB_REF_NAME "winmerge-anydoc-$env:GITHUB_REF_NAME.zip" --title $env:GITHUB_REF_NAME --generate-notes --verify-tag

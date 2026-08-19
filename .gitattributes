@@ -3,6 +3,8 @@
 *.md text eol=lf
 *.hbs text eol=lf
 *.idl text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
 Cargo.lock text eol=lf
 .gitignore text eol=lf
 LICENSE text eol=lf
