@@ -22,7 +22,6 @@ A WinMerge unpacker plugin that converts Microsoft Office documents to Markdown 
 
 - Windows 10 or 11 x64
 - 64-bit [WinMerge](https://winmerge.org/)
-- Microsoft Visual C++ 2015-2026 Redistributable (x64)
 
 ## Installation
 
