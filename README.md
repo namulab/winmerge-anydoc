@@ -7,6 +7,10 @@ No Microsoft Office. No Python runtime. No helper executable. No external conver
 `winmerge-anydoc` is a native WinMerge unpacker plugin powered by [anydoc](https://github.com/firecrawl/anydoc).
 It converts supported Microsoft Office documents directly to GitHub-Flavored Markdown in-process, then lets WinMerge compare the resulting text.
 
+![Comparing two Excel files with winmerge-anydoc](docs/images/excel-comparison.png)
+
+*Comparing two Excel (`.xlsx`) files with winmerge-anydoc.*
+
 ## Why winmerge-anydoc?
 
 Office pre-processing plugins for WinMerge already exist. The goal of this plugin is not simply to extract text from Office files, but to provide a lightweight, structured, dependency-free comparison path.
