@@ -33,6 +33,8 @@ const DISPID_UNPACK_FILE: i32 = 6;
 const DISPID_PACK_FILE: i32 = 7;
 
 fn load_plugin_type_info() -> Result<ITypeInfo> {
+    // Load the type library embedded in this DLL so Automation metadata remains
+    // available without registering the plugin in the system registry.
     let mut module = HMODULE::default();
 
     unsafe {
@@ -106,6 +108,8 @@ fn dispatch_args(params: &DISPPARAMS, expected: usize) -> Result<&[VARIANT]> {
         return Err(Error::from_hresult(E_POINTER));
     }
 
+    // The count and pointer must be validated before treating caller-owned COM
+    // memory as a Rust slice.
     Ok(unsafe { std::slice::from_raw_parts(params.rgvarg, params.cArgs as usize) })
 }
 
@@ -129,7 +133,7 @@ fn invoke_unpack_file(params: *const DISPPARAMS, result: *mut VARIANT) -> Result
     };
 
     /*
-     * IDispatch の引数は逆順。
+     * IDispatch arguments are provided in reverse order.
      *
      * IDL:
      *   UnpackFile(
@@ -153,6 +157,8 @@ fn invoke_unpack_file(params: *const DISPPARAMS, result: *mut VARIANT) -> Result
     let file_dst = variant_to_string(&args[2])?;
     let file_src = variant_to_string(&args[3])?;
 
+    // Once the Automation call is valid, report conversion failures through the
+    // WinMerge return value rather than as an IDispatch failure.
     let success = crate::winmerge::unpack_file(Path::new(&file_src), Path::new(&file_dst)).is_ok();
 
     unsafe {
@@ -187,6 +193,8 @@ fn invoke_pack_file(params: *const DISPPARAMS, result: *mut VARIANT) -> Result<(
      */
     let args = dispatch_args(params, 4)?;
 
+    // Validate unused inputs as well so malformed Automation calls receive the
+    // standard COM type-mismatch error.
     if args[0].vt() != VT_I4 {
         return Err(Error::from_hresult(DISP_E_TYPEMISMATCH));
     }
@@ -198,8 +206,8 @@ fn invoke_pack_file(params: *const DISPPARAMS, result: *mut VARIANT) -> Result<(
     }
 
     /*
-     * このプラグインは Office -> Markdown の一方向変換。
-     * Markdown から Office 文書への再パックは行わない。
+     * This plugin only converts from Office documents to Markdown.
+     * It does not repack Markdown into Office documents.
      */
     unsafe {
         *changed = VARIANT_BOOL::from(false);
@@ -232,6 +240,7 @@ impl IDispatch_Impl for WinMergeScript_Impl {
         _lcid: u32,
         rgdispid: *mut i32,
     ) -> Result<()> {
+        // Keep plugin.idl as the source of truth for name-to-DISPID mapping.
         let type_info = load_plugin_type_info()?;
 
         unsafe { type_info.GetIDsOfNames(rgsznames, cnames, rgdispid) }
@@ -248,6 +257,7 @@ impl IDispatch_Impl for WinMergeScript_Impl {
         _pexcepinfo: *mut EXCEPINFO,
         _puargerr: *mut u32,
     ) -> Result<()> {
+        // These DISPIDs must stay aligned with plugin.idl and the embedded type library.
         match dispidmember {
             DISPID_PLUGIN_EVENT => set_result(pvarresult, VARIANT::from("FILE_PACK_UNPACK")),
 
@@ -286,6 +296,7 @@ impl IClassFactory_Impl for WinMergeClassFactory_Impl {
         riid: *const GUID,
         ppvobject: *mut *mut c_void,
     ) -> Result<()> {
+        // This lightweight factory does not implement COM object aggregation.
         if punkouter.is_some() {
             return Err(Error::from_hresult(CLASS_E_NOAGGREGATION));
         }
@@ -294,6 +305,7 @@ impl IClassFactory_Impl for WinMergeClassFactory_Impl {
             return Err(Error::from_hresult(E_POINTER));
         }
 
+        // COM requires output interface pointers to be null on failure.
         unsafe {
             *ppvobject = null_mut();
         }
@@ -304,6 +316,7 @@ impl IClassFactory_Impl for WinMergeClassFactory_Impl {
     }
 
     fn LockServer(&self, _flock: BOOL) -> Result<()> {
+        // WinMerge owns the DLL lifetime; the plugin keeps no separate lock count.
         Ok(())
     }
 }
@@ -318,6 +331,7 @@ pub unsafe extern "system" fn DllGetClassObject(
         return E_POINTER;
     }
 
+    // Clear the caller's output before any class or interface lookup can fail.
     unsafe {
         *ppv = null_mut();
 

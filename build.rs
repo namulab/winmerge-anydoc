@@ -14,6 +14,8 @@ fn main() {
     #[cfg(windows)]
     build_windows();
 
+    // Build scripts run on the host, so Windows SDK tools require a Windows host
+    // even when Cargo is targeting Windows from another platform.
     #[cfg(not(windows))]
     panic!("Building the WinMerge plugin requires a Windows host.");
 }
@@ -31,7 +33,7 @@ fn build_windows() {
 
     let vcvars = find_vcvars64();
 
-    // plugin.idl -> plugin.tlb
+    // Compile the Automation contract into the type library consumed by COM clients.
     run_in_vs_environment(
         &vcvars,
         &format!(
@@ -41,18 +43,18 @@ fn build_windows() {
         ),
     );
 
-    // plugin.tlb を埋め込むリソーススクリプトを生成
+    // Embed the type library so the DLL remains self-contained and needs no sidecar file.
     let tlb_for_rc = tlb.to_string_lossy().replace('\\', "\\\\");
 
     fs::write(&rc, format!("1 TYPELIB \"{tlb_for_rc}\"\r\n")).expect("failed to create plugin.rc");
 
-    // plugin.rc -> plugin.res
+    // Compile the resource script into the format accepted by the linker.
     run_in_vs_environment(
         &vcvars,
         &format!("rc /nologo /fo \"{}\" \"{}\"", res.display(), rc.display()),
     );
 
-    // plugin.res を cdylib にリンク
+    // Link the resource into the cdylib so LoadTypeLibEx can read it from the DLL.
     println!("cargo::rustc-link-arg-cdylib={}", res.display());
 }
 
@@ -66,6 +68,7 @@ fn find_vcvars64() -> PathBuf {
         .join("Installer")
         .join("vswhere.exe");
 
+    // Query by required component instead of assuming a Visual Studio edition or path.
     let output = Command::new(&vswhere)
         .args([
             "-latest",
@@ -109,15 +112,16 @@ fn find_vcvars64() -> PathBuf {
 fn run_in_vs_environment(vcvars: &Path, command: &str) {
     use std::os::windows::process::CommandExt;
 
+    // vcvars64.bat mutates the shell environment, so setup and execution must
+    // happen in the same cmd.exe process.
     let command_line = format!("call \"{}\" >nul && {}", vcvars.display(), command);
 
     /*
-     * cmd.exe /c は通常のWindowsプログラムと
-     * 引数の引用符処理が異なるため、
-     * Command::arg() ではなく raw_arg() を使用する。
+     * cmd.exe /c handles argument quoting differently from regular Windows
+     * programs, so use raw_arg() instead of Command::arg().
      *
-     * cmd.exe が要求するように、
-     * コマンド全体をさらに "..." で囲む。
+     * Wrap the entire command in an additional pair of double quotes, as
+     * required by cmd.exe.
      */
     let raw_command = format!("\"{}\"", command_line);
 
