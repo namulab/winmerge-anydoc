@@ -1,128 +1,171 @@
 # winmerge-anydoc
 
-**Compare Microsoft Office documents in WinMerge as structured Markdown — with a single native DLL.**
+English | [日本語](README.ja.md)
 
-No Microsoft Office. No Python runtime. No helper executable. No external converter process.
+**Compare Word, Excel, and PowerPoint files in WinMerge. No Microsoft Office or Python required.**
 
-`winmerge-anydoc` is a native WinMerge unpacker plugin powered by [anydoc](https://github.com/firecrawl/anydoc).
-It converts supported Microsoft Office documents directly to GitHub-Flavored Markdown in-process, then lets WinMerge compare the resulting text.
+`winmerge-anydoc` is a WinMerge unpacker plugin for comparing Office documents.
 
-![Comparing two Excel files with winmerge-anydoc](docs/images/excel-comparison.png)
+Instead of extracting documents as simple plain text, it converts them to Markdown while preserving structures such as tables, headings, and lists as much as possible, and then compares the result in WinMerge.
 
-*Comparing two Excel (`.xlsx`) files with winmerge-anydoc.*
+**Installation requires only copying a single DLL to the `MergePlugins` folder.**
 
-## Why winmerge-anydoc?
+## Comparison example
 
-Office pre-processing plugins for WinMerge already exist. The goal of this plugin is not simply to extract text from Office files, but to provide a lightweight, structured, dependency-free comparison path.
+**Viewed in Word**
+
+![Document displayed in Word](docs/images/word-document.png)
+
+*Example of a Word (`.docx`) document containing headings, bullet lists, numbered lists, and a table.*
+
+**Comparison in WinMerge**
+
+![Comparing Word files with winmerge-anydoc](docs/images/word-comparison.png)
+
+*Example of comparing two Word (`.docx`) files with winmerge-anydoc. The document structure remains visible in the comparison as Markdown.*
+
+## Features
 
 ### Single-DLL installation
 
-The converter is linked directly into `compare_office_with_anydoc.dll`.
+All functionality required for document conversion is built into `compare_office_with_anydoc.dll`.
 
-There is no Python environment to prepare, no package installation, no helper executable, and no separate converter process to manage. The distributed plugin also does not require a separate Visual C++ Redistributable.
+You do not need to install or prepare any of the following:
 
-Install the DLL, restart WinMerge, and compare documents.
+* Microsoft Office
+* Python environment
+* Python packages
+* Helper executables
+* External document converters
+* Visual C++ Redistributable
 
-### Structured Markdown comparison
+Simply place the DLL in the appropriate folder and restart WinMerge.
 
-Instead of flattening documents into plain extracted text, `winmerge-anydoc` converts them to GitHub-Flavored Markdown.
+### Compare while preserving structures such as tables and headings
 
-This gives WinMerge a more structured representation of the document, allowing elements such as headings, lists, and tables to remain visible in the comparison where the source format permits.
+Instead of extracting Office document contents as simple plain text, the plugin converts them to Markdown for comparison.
 
-This is especially useful when changes are structural rather than limited to individual words.
+Depending on the document content and format, structures such as the following can remain visible in the comparison:
+
+* Headings
+* Lists
+* Tables
+
+This can make differences easier to understand than simple text extraction, especially for Excel tables or changes to the document structure itself.
+
+Internally, documents are converted to **GitHub-Flavored Markdown**.
 
 ### Microsoft Office is not required
 
-Documents are parsed directly.
+The plugin can be used even on PCs where Word, Excel, and PowerPoint are not installed.
 
-Microsoft Word, Excel, and PowerPoint do not need to be installed, and the plugin does not automate Office through COM.
+Rather than launching and controlling Office applications through COM, it parses the document files directly.
 
-### Native in-process conversion
+### No external converter process
 
-`anydoc` is used directly as a Rust library inside the WinMerge plugin.
+Document conversion is powered by the Rust library [anydoc](https://github.com/firecrawl/anydoc).
 
-There is no shell-out to another converter. Document conversion happens inside the plugin process before WinMerge performs the text comparison.
+Because `anydoc` is linked directly into the DLL as a library, no separate converter or helper program is launched during conversion.
 
-### Fast conversion powered by anydoc
+Document conversion runs inside the WinMerge plugin.
 
-`anydoc` is a pure-Rust document-to-Markdown converter designed for fast local conversion.
+### Fast local conversion
 
-Its upstream benchmark reports a median conversion time under 5 ms across its benchmark corpus. These figures measure `anydoc` conversion itself and are not an end-to-end WinMerge benchmark.
+`anydoc` is a Pure Rust library designed for fast conversion of documents to Markdown.
 
-See the [anydoc benchmark](https://github.com/firecrawl/anydoc#benchmark) for methodology and current results.
+According to the official anydoc benchmark, the median conversion time for its benchmark documents is reported to be under 5 milliseconds.
 
-## How it differs from common approaches
+This figure represents the conversion time of `anydoc` itself and does not indicate the overall performance of the complete WinMerge comparison process.
 
-| Approach | Typical characteristics | winmerge-anydoc |
-|---|---|---|
-| xdocdiff / xdoc2txt-style text extraction | Extracts document contents for text comparison | Converts to Markdown so useful document structure can remain visible |
-| MarkItDown-based integration | Python package with format-specific dependencies | Native DLL with no Python environment or package setup |
-| Office automation plugins | Use installed Microsoft Office applications to open or export documents | Parses documents directly; Microsoft Office is not required |
-| External converter plugins | Launch a helper program or converter process | Conversion is performed in-process through the linked Rust library |
+See the [anydoc benchmark](https://github.com/firecrawl/anydoc#benchmark) for details.
 
-The comparison above is about deployment and conversion architecture. Different tools support different formats and use cases, and `winmerge-anydoc` is intentionally focused on Office document comparison in WinMerge.
+## Supported file formats
 
-## Supported file extensions
-
-| Type | Extensions |
-|---|---|
-| Word | `.doc`, `.docx`, `.docm` |
-| Excel | `.xls`, `.xlsx`, `.xlsm`, `.xlsb` |
+| Type       | Extensions                                                 |
+| ---------- | ---------------------------------------------------------- |
+| Word       | `.doc`, `.docx`, `.docm`                                   |
+| Excel      | `.xls`, `.xlsx`, `.xlsm`, `.xlsb`                          |
 | PowerPoint | `.ppt`, `.pps`, `.pot`, `.pptx`, `.pptm`, `.ppsx`, `.ppsm` |
 
-Both legacy binary Office formats and modern OOXML formats are supported.
+Both formats commonly used with Office 97-2003, such as `.doc`, `.xls`, and `.ppt`, and newer formats such as `.docx`, `.xlsx`, and `.pptx` are supported.
 
 ## Requirements
 
-- Windows 10 or 11 x64
-- 64-bit [WinMerge](https://winmerge.org/)
+* Windows 10 or Windows 11 x64
+* 64-bit [WinMerge](https://winmerge.org/)
 
-Microsoft Office, Python, and an external document converter are **not** required.
+Microsoft Office, Python, and an external document converter are not required.
 
-## Installation
+## Installation and usage
 
 1. Download the latest ZIP package from [GitHub Releases](https://github.com/namulab/winmerge-anydoc/releases).
-2. Extract the package.
-3. Copy `compare_office_with_anydoc.dll` to the `MergePlugins` directory of your WinMerge installation.
+2. Extract the ZIP file.
+3. Copy `compare_office_with_anydoc.dll` to the `MergePlugins` folder of your WinMerge installation.
 4. Restart WinMerge.
-5. Compare supported Office documents as usual.
+5. From the WinMerge menu, enable **[Plugins] → [Automatic Unpacking]**.
+6. Compare supported Office documents as usual.
 
-WinMerge can select the plugin automatically for supported file extensions. It can also be selected manually as an unpacker plugin.
+If [Automatic Unpacking] is already enabled, no settings need to be changed.
 
-The release package contains:
+When automatic unpacking is enabled, WinMerge automatically selects an unpacker plugin that supports the file extension.
 
-```text
-compare_office_with_anydoc.dll
-LICENSE
-THIRD_PARTY_NOTICES.md
-README.md
-```
+If multiple unpacker plugins supporting the same extension are installed, for example, you can also manually select `winmerge-anydoc` as the unpacker plugin.
+
+## How it differs from other approaches
+
+There are several approaches to comparing Office documents in WinMerge.
+
+| Approach                                   | Typical characteristics                                                   | winmerge-anydoc                                                                          |
+| ------------------------------------------ | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| xdocdiff / xdoc2txt-style tools            | Extract document contents as text for comparison                          | Converts to Markdown and preserves structures such as tables and headings where possible |
+| Python-based conversion such as MarkItDown | Requires a Python environment and format-specific packages                | No Python required. Runs with only the DLL                                               |
+| Office automation                          | Uses installed Microsoft Office applications to open or convert documents | No Office required. Parses document files directly                                       |
+| External converter approach                | Launches a separate converter program and passes the result to WinMerge   | Embeds the conversion library in the DLL and performs conversion inside the plugin       |
+
+This comparison mainly describes differences in **deployment and document conversion methods**.
+
+Each tool has different supported formats and use cases, and `winmerge-anydoc` focuses on making Office document comparison easy to use in WinMerge.
 
 ## How it works
 
 ```text
 Office document
-      |
-      v
+    |
+    v
 compare_office_with_anydoc.dll
-      |
-      |  anydoc (linked Rust library)
-      v
+    |
+    |  anydoc (embedded as a Rust library)
+    v
 GitHub-Flavored Markdown
-      |
-      v
-WinMerge text comparison
+    |
+    v
+Text comparison by WinMerge
 ```
 
-The conversion is one-way and intended only for comparison. Modified Markdown is not written back to the original Office document.
+`anydoc` is not executed as an external program. It is linked directly into the plugin DLL as a Rust library.
+
+Therefore, instead of using a process such as:
+
+```text
+WinMerge
+  -> Launch external program
+  -> Convert document
+  -> Return result to WinMerge
+```
+
+the document-to-Markdown conversion is performed inside the WinMerge plugin.
+
+The conversion is one-way and intended for comparison.
+
+Editing the converted Markdown in the comparison view does not write changes back to the original Office document.
 
 ## Building from source
 
 ### Requirements
 
-- Rust 1.97.1
-- Visual Studio with MSVC C++ build tools
-- Windows SDK with MIDL and Resource Compiler tools
+* Rust 1.97.1
+* Visual Studio with MSVC C++ build tools
+* Windows SDK with MIDL and Resource Compiler tools
 
 The required Rust toolchain and target are defined in `rust-toolchain.toml`.
 
@@ -132,7 +175,7 @@ Build the release version:
 cargo build --release
 ```
 
-The resulting plugin DLL is:
+The generated plugin DLL is located at:
 
 ```text
 target\release\compare_office_with_anydoc.dll
@@ -154,43 +197,17 @@ Run the COM plugin smoke test:
 .\tests\com-plugin\test-com-plugin.ps1
 ```
 
-The test uses a synthetic Office document contained in the repository and writes temporary conversion output only to the system temporary directory.
-
-## Releases
-
-GitHub Releases are built automatically from version tags.
-
-For example, pushing tag `v0.1.0` builds the release DLL on GitHub Actions, packages the DLL with the license and documentation files, and publishes:
-
-```text
-winmerge-anydoc-v0.1.0.zip
-```
-
-The workflow verifies that the Git tag matches the version in `Cargo.toml` before publishing the release.
-
-## License checks
-
-Third-party Rust dependency licenses are checked with [cargo-deny](https://github.com/EmbarkStudios/cargo-deny):
-
-```powershell
-cargo deny check licenses
-```
-
-Third-party license notices are generated with [cargo-about](https://github.com/EmbarkStudios/cargo-about):
-
-```powershell
-cargo about generate --locked --fail -o .\THIRD_PARTY_NOTICES.md .\about.hbs
-```
-
-`THIRD_PARTY_NOTICES.md` is generated automatically and should not be edited manually.
+The test uses a test Office document contained in the repository, and temporary conversion output is written only to the system temporary directory.
 
 ## Acknowledgements
 
-Document conversion is powered by [anydoc](https://github.com/firecrawl/anydoc), a Rust library for converting Office and other document formats to GitHub-Flavored Markdown.
+Document conversion is powered by [anydoc](https://github.com/firecrawl/anydoc).
+
+anydoc is a Rust library for converting Office documents and other formats to GitHub-Flavored Markdown.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE).
+This project is released under the MIT License. See [LICENSE](LICENSE) for details.
 
 Third-party software licenses and copyright notices are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
