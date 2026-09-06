@@ -185,19 +185,13 @@ target\release\compare_office_with_anydoc.dll
 
 ## テスト
 
-デバッグ版をビルドします。
-
-```powershell
-cargo build
-```
-
 COMプラグインのスモークテストを実行します。
 
-```powershell
-.\tests\com-plugin\test-com-plugin.ps1
+```console
+cargo test --test com_plugin
 ```
 
-テストではリポジトリ内のテスト用Office文書を使用し、一時的な変換結果はシステムの一時ディレクトリにのみ出力します。
+Rustの統合テストは実際のプラグインDLLをビルドして読み込みます。テストではリポジトリ内のテスト用Office文書を使用し、一時的な変換結果はシステムの一時ディレクトリにのみ出力します。
 
 ## 謝辞
 

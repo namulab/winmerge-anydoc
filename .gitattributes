@@ -8,5 +8,4 @@
 Cargo.lock text eol=lf
 .gitignore text eol=lf
 LICENSE text eol=lf
-*.ps1 -text
 *.docx -text

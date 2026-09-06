@@ -185,19 +185,13 @@ The release build statically links the MSVC C runtime used by the plugin.
 
 ## Testing
 
-Build the debug version:
-
-```powershell
-cargo build
-```
-
 Run the COM plugin smoke test:
 
-```powershell
-.\tests\com-plugin\test-com-plugin.ps1
+```console
+cargo test --test com_plugin
 ```
 
-The test uses a test Office document contained in the repository, and temporary conversion output is written only to the system temporary directory.
+The Rust integration test builds and loads the actual plugin DLL, uses the test Office document contained in the repository, and writes temporary conversion output only to the system temporary directory.
 
 ## Acknowledgements
 
