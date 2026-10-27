@@ -1320,41 +1320,6 @@ DEALINGS IN THE SOFTWARE.
 
 Used by:
 
-- atoi_simd 0.18.1 - https://github.com/RoDmitry/atoi_simd
-
-```text
-Copyright (c) 2022 Dmitry Rodionov
-
-Permission is hereby granted, free of charge, to any
-person obtaining a copy of this software and associated
-documentation files (the "Software"), to deal in the
-Software without restriction, including without
-limitation the rights to use, copy, modify, merge,
-publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software
-is furnished to do so, subject to the following
-conditions:
-
-The above copyright notice and this permission notice
-shall be included in all copies or substantial portions
-of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
-ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
-SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
-
-```
-
-## MIT License
-
-Used by:
-
 - inout 0.1.4 - https://github.com/RustCrypto/utils
 
 ```text
@@ -1442,41 +1407,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-```
-
-## MIT License
-
-Used by:
-
-- debug_unsafe 0.1.4 - https://github.com/RoDmitry/debug_unsafe
-
-```text
-Copyright (c) 2025 Dmitry Rodionov
-
-Permission is hereby granted, free of charge, to any
-person obtaining a copy of this software and associated
-documentation files (the "Software"), to deal in the
-Software without restriction, including without
-limitation the rights to use, copy, modify, merge,
-publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software
-is furnished to do so, subject to the following
-conditions:
-
-The above copyright notice and this permission notice
-shall be included in all copies or substantial portions
-of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
-ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
-TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
-SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-DEALINGS IN THE SOFTWARE.
 
 ```
 
@@ -1634,7 +1564,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Used by:
 
-- codepage 0.1.2 - https://github.com/hsivonen/codepage
 - encoding_rs 0.8.35 - https://github.com/hsivonen/encoding_rs
 
 ```text
@@ -1856,7 +1785,7 @@ SOFTWARE.
 
 Used by:
 
-- anydoc 0.1.9 - https://github.com/firecrawl/anydoc
+- anydoc 0.2.4 - https://github.com/firecrawl/anydoc
 
 ```text
 MIT License
@@ -2024,13 +1953,10 @@ SOFTWARE.
 Used by:
 
 - adler2 2.0.1 - https://github.com/oyvindln/adler2
-- fast-float2 0.2.4 - https://github.com/Alexhuszagh/fast-float-rust
 - itoa 1.0.18 - https://github.com/dtolnay/itoa
 - once_cell 1.21.4 - https://github.com/matklad/once_cell
 - proc-macro2 1.0.107 - https://github.com/dtolnay/proc-macro2
 - quote 1.0.47 - https://github.com/dtolnay/quote
-- rustversion 1.0.23 - https://github.com/dtolnay/rustversion
-- serde 1.0.229 - https://github.com/serde-rs/serde
 - serde_core 1.0.229 - https://github.com/serde-rs/serde
 - syn 2.0.119 - https://github.com/dtolnay/syn
 - syn 3.0.3 - https://github.com/dtolnay/syn
@@ -2148,7 +2074,6 @@ SOFTWARE.
 Used by:
 
 - aho-corasick 1.1.5 - https://github.com/BurntSushi/aho-corasick
-- byteorder 1.5.0 - https://github.com/BurntSushi/byteorder
 - csv-core 0.1.13 - https://github.com/BurntSushi/rust-csv
 - csv 1.4.0 - https://github.com/BurntSushi/rust-csv
 - jiff-core 0.1.0 - https://github.com/BurntSushi/jiff
@@ -2175,39 +2100,6 @@ all copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-
-```
-
-## MIT License
-
-Used by:
-
-- calamine 0.36.1 - https://github.com/tafia/calamine
-
-```text
-The MIT License (MIT)
-
-Copyright (c) 2016 Johann Tuffe
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
