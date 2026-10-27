@@ -92,7 +92,7 @@ jobs:
 
       - name: Install license generator
         if: steps.prepare.outputs.changed == 'true'
-        run: cargo install cargo-about --version 0.9.1 --locked
+        run: cargo install cargo-about --version 0.9.1 --features cli --locked
 
       - name: Update third-party notices
         if: steps.prepare.outputs.changed == 'true'
