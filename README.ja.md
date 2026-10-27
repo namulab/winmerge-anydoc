@@ -205,4 +205,11 @@ anydocは、Office文書などをGitHub-Flavored Markdownへ変換するRustラ�
 
 サードパーティソフトウェアのライセンスおよび著作権表示は [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) に記載しています。
 
+## anydoc の自動更新
+
+GitHub Actions が毎日 crates.io の anydoc の正式版を確認します。更新がある場合は
+ビルド・テスト後に本プロジェクトのパッチバージョンを上げ（例: `0.1.1 → 0.1.2`）、
+GitHub Release を公開します。有効化の条件や失敗時の再実行方法は
+[自動リリースの運用ガイド](docs/auto-release.md)を参照してください。
+
 Copyright (c) 2026 namulab

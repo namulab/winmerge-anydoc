@@ -193,6 +193,13 @@ cargo test --test com_plugin
 
 The Rust integration test builds and loads the actual plugin DLL, uses the test Office document contained in the repository, and writes temporary conversion output only to the system temporary directory.
 
+## Automated dependency releases
+
+GitHub Actions checks crates.io for new stable anydoc versions daily. When an update
+passes the build and tests, it increments this project's patch version (for example,
+`0.1.1` to `0.1.2`) and publishes a GitHub Release. See the
+[automation setup and recovery guide (Japanese)](docs/auto-release.md).
+
 ## Acknowledgements
 
 Document conversion is powered by [anydoc](https://github.com/firecrawl/anydoc).
