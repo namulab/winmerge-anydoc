@@ -2,3 +2,11 @@
 
 *.pdb
 __pycache__/
+
+# Local agent settings, credentials, and environment files
+.codex/
+.claude/settings.local.json
+.aws/
+.ssh/
+.env
+.env.*
