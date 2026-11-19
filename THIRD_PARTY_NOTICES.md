@@ -221,6 +221,7 @@ Used by:
 
 Used by:
 
+- constant_time_eq 0.6.1 - https://codeberg.org/cesarb/constant_time_eq
 - ryu 1.0.23 - https://github.com/dtolnay/ryu
 
 ```text
@@ -1143,6 +1144,41 @@ DEALINGS IN THE SOFTWARE.
 
 Used by:
 
+- zeroize 1.9.2 - https://github.com/RustCrypto/utils
+
+```text
+Copyright (c) 2018-2026 The RustCrypto Project Developers
+
+Permission is hereby granted, free of charge, to any
+person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the
+Software without restriction, including without
+limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software
+is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice
+shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+```
+
+## MIT License
+
+Used by:
+
 - getrandom 0.4.3 - https://github.com/rust-random/getrandom
 
 ```text
@@ -1215,6 +1251,7 @@ DEALINGS IN THE SOFTWARE.
 Used by:
 
 - chacha20 0.10.1 - https://github.com/RustCrypto/stream-ciphers
+- zeroize_derive 1.5.0 - https://github.com/RustCrypto/utils
 
 ```text
 Copyright (c) 2019-2026 The RustCrypto Project Developers
@@ -1785,7 +1822,7 @@ SOFTWARE.
 
 Used by:
 
-- anydoc 0.2.4 - https://github.com/firecrawl/anydoc
+- anydoc 0.2.5 - https://github.com/firecrawl/anydoc
 
 ```text
 MIT License
@@ -1957,12 +1994,13 @@ Used by:
 - once_cell 1.21.4 - https://github.com/matklad/once_cell
 - proc-macro2 1.0.107 - https://github.com/dtolnay/proc-macro2
 - quote 1.0.47 - https://github.com/dtolnay/quote
+- rustversion 1.0.23 - https://github.com/dtolnay/rustversion
 - serde_core 1.0.229 - https://github.com/serde-rs/serde
 - syn 2.0.119 - https://github.com/dtolnay/syn
 - syn 3.0.3 - https://github.com/dtolnay/syn
 - thiserror-impl 2.0.20 - https://github.com/dtolnay/thiserror
 - thiserror 2.0.20 - https://github.com/dtolnay/thiserror
-- typed-path 0.12.3 - https://github.com/chipsenkbeil/typed-path
+- typed-path 0.13.0 - https://github.com/chipsenkbeil/typed-path
 - unicode-ident 1.0.24 - https://github.com/dtolnay/unicode-ident
 
 ```text
@@ -2011,7 +2049,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 Used by:
 
-- zip 8.6.0 - https://github.com/zip-rs/zip2
+- zip 9.7.3 - https://github.com/zip-rs/zip2
 
 ```text
 The MIT License (MIT)

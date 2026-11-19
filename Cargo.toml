@@ -1,6 +1,6 @@
 [package]
 name = "winmerge-anydoc"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 rust-version = "1.97.1"
 license = "MIT"
@@ -10,7 +10,7 @@ description = "A WinMerge plugin that converts Office documents to Markdown usin
 
 
 [dependencies]
-anydoc = "=0.2.4"
+anydoc = "=0.2.5"
 windows-core = "0.62.2"
 
 [dependencies.windows]
